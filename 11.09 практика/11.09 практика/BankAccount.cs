@@ -62,5 +62,21 @@ internal class BankAccount
 
     }
 
+    public string GetAccountHistory()
+    {
+        var repost = new StringBuilder();
+        decimal balance = 0;
+        repost.AppendLine("Data\t\tAmount\tBAlance\tNote");
+        foreach (var item in _allTransactions)
+        {
+            balance += item.Amount;
+            repost.AppendLine($"" +
+                $"{item.Date.ToShortDateString()}\t" +
+                $"{item.Amount}\t {balance}\t {item.Note}");
+        }
+        return repost.ToString();
 
-}
+    }
+
+
+    }
