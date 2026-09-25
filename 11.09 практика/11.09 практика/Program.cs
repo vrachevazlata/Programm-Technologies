@@ -7,7 +7,7 @@
     {
         static void Main(string[] args)
         {
-            BankAccount account = new BankAccount("nasy", 5000);
+            BankAccount account = new BankAccount("nasy ", 5000);
 
             BankAccount account2 = new BankAccount("nasy", 7000);
             Console.WriteLine($"account {account.Balance} {account.Number} {account.Owner}");
