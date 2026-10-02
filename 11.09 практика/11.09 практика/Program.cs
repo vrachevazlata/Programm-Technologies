@@ -27,6 +27,15 @@
             { 
                 Console.WriteLine(e.Message );
             }
+            InterestEarningAccount interestEarning = new("Zlata", 10000m); //точка остановы
+            interestEarning.MakeDeposit(100m, DateTime.UtcNow, ":)");
+            interestEarning.MakeWithdrawal(10m, DateTime.UtcNow, ":(");
+            interestEarning.PerformMountAndTransactions();
+            Console.WriteLine(interestEarning.GetAccountHistory());
+
+            Console.WriteLine(interestEarning);
+            Console.WriteLine(interestEarning.GetAccountHistory());
+
         }
 
     }

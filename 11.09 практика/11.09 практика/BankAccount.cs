@@ -1,7 +1,12 @@
 ﻿
+using System.Text;
+
 namespace _11._09_практика;
 
-internal class BankAccount
+//BankAccount - потомок от object => можно переопределить
+//виртуальные методы, находящиеся в object
+
+public class BankAccount
 {
 
     static private int s_accountNumberSeed = 1000000000;
@@ -77,6 +82,22 @@ internal class BankAccount
         return repost.ToString();
 
     }
-
+    //Ключевое слово  virtual позволяет в дочернем классе 
+    //предоставить другую реализацию
+    //метода PerformMountAndTransactions
+    public virtual void PerformMountAndTransactions()
+    {
 
     }
+
+
+    //переопределяем метод, который унаследовали от object
+    //этот метод должен возвращать строку с состоянием объекта
+    //public override string ToString()
+    //{
+    //    return $'Type: {GetType().Name}\tOwner: {Owner} \tNumber of account : {Number}'
+    //}
+
+    public override string ToString() => return $'Type: {GetType().Name}\tOwner: {Owner} \tNumber of account : {Number}';
+}
+
