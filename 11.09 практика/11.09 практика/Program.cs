@@ -3,7 +3,7 @@
     //Классы банковских считов
 
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -30,12 +30,20 @@
             InterestEarningAccount interestEarning = new("Zlata", 10000m); //точка остановы
             interestEarning.MakeDeposit(100m, DateTime.UtcNow, ":)");
             interestEarning.MakeWithdrawal(10m, DateTime.UtcNow, ":(");
-            interestEarning.PerformMountAndTransactions();
+            interestEarning.PerformMonthAndTransactions();
             Console.WriteLine(interestEarning.GetAccountHistory());
 
             Console.WriteLine(interestEarning);
             Console.WriteLine(interestEarning.GetAccountHistory());
 
+
+            GiftCartAccount giftCart = new("Zlata", 1000m, 5000m);
+            giftCart.MakeDeposit(100m, DateTime.UtcNow, ":)");
+            giftCart.MakeWithdrawal(10m, DateTime.UtcNow, ":(");
+            giftCart.PerformMonthAndTransactions();
+
+            Console.WriteLine(giftCart);
+            Console.WriteLine(giftCart.GetAccountHistory());
         }
 
     }

@@ -2,8 +2,8 @@
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace _11._09_практика;
-//  recoed -сосотояние обьектов класса нельзя изменить
-internal record Transaction(decimal Amount, DateTime Date, string Note); //конструктор кратко
+//  recoed -состояние обьектов класса нельзя изменить
+public record Transaction(decimal Amount, DateTime Date, string Note); //конструктор кратко
 
 //internal record Transaction
 //{

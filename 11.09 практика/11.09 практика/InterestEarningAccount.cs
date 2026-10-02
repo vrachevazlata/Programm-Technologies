@@ -11,7 +11,7 @@ public class InterestEarningAccount: BankAccount
 
     //override позволяет в дочернем классе определить новую реализацию
     //метода PerformMountAndTransactions
-    public override void PerformMountAndTransactions()
+    public override void PerformMonthAndTransactions()
     {
         if( Balance > 500m)
         {

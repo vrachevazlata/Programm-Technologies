@@ -45,9 +45,10 @@ public class BankAccount
         if (amout <= 0)
         {
             throw new ArgumentOutOfRangeException(nameof(amout), "Amount of deposit must be posisive");
-            var deposit = new Transaction(amout, date, note);
-            _allTransactions.Add(deposit);
+            
         }
+        var deposit = new Transaction(amout, date, note);
+        _allTransactions.Add(deposit);
 
 
 
@@ -85,7 +86,7 @@ public class BankAccount
     //Ключевое слово  virtual позволяет в дочернем классе 
     //предоставить другую реализацию
     //метода PerformMountAndTransactions
-    public virtual void PerformMountAndTransactions()
+    public virtual void PerformMonthAndTransactions()
     {
 
     }
@@ -98,6 +99,6 @@ public class BankAccount
     //    return $'Type: {GetType().Name}\tOwner: {Owner} \tNumber of account : {Number}'
     //}
 
-    public override string ToString() => return $'Type: {GetType().Name}\tOwner: {Owner} \tNumber of account : {Number}';
+    public override string ToString() => $"Type: {GetType().Name}\tOwner: {Owner} \tNumber of account : {Number}";
 }
 
