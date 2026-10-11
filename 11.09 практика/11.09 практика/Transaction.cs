@@ -1,22 +1,11 @@
-﻿
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿namespace _11._09_практика;
+//  record -состояние обьектов класса нельзя изменить
 
-namespace _11._09_практика;
-//  recoed -состояние обьектов класса нельзя изменить
-public record Transaction(decimal Amount, DateTime Date, string Note); //конструктор кратко
-
-//internal record Transaction
-//{
-//    public decimal Amount { get; }
-//    public decimal DateTime Date { get; }
-//    public decimal string Note { get; }
-
-//    public Transaction(decimal Amount, DateTime Date, string Note) 
-//    {
-//        this.Amount = Amount;
-//        this. Date =  Date;
-//        this.Note = Note;
-
-
-//    }
-//}
+/// <summary>
+/// Представляет одну банковскую транзакцию: сумму, дату и примечание.
+/// </summary>
+/// <param name="Amount">Сумма транзакции. Положительное значение — пополнение,отрицательное — списание.</param>
+/// <param name="Date">Дата и время совершения транзакции.</param>
+/// <param name="Note">Текстовое примечание к транзакции.</param>
+/// <param name="TransferId">идентификатор перевода, если это не перевод он равен null </param>
+public record Transaction(decimal Amount, DateTime Date, string Note, Guid? TransferId = null); //конструктор кратко

@@ -1,25 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Class Name="_11._09_практика.BankAccount">
-    <Position X="9" Y="1.25" Width="5.25" />
-    <TypeIdentifier>
-      <HashCode>IAAAACCAQAAAAAAEAEgAAAAAAABAAQAAAAAAAQAAAAA=</HashCode>
-      <FileName>BankAccount.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="_11._09_практика.InterestEarningAccount">
-    <Position X="3.25" Y="1" Width="4" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>InterestEarningAccount.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="_11._09_практика.GiftCartAccount">
-    <Position X="2" Y="3" Width="5.25" />
+    <Position X="12.25" Y="9.75" Width="4" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAAAAAAEAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GiftCartAccount.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="_11._09_практика.InterestEarningAccount">
+    <Position X="2.75" Y="10.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InterestEarningAccount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_11._09_практика.LineOfCreditAccount">
+    <Position X="5.75" Y="10.25" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LineOfCreditAccount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_11._09_практика.Program">
+    <Position X="2.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_11._09_практика.AuditLog">
+    <Position X="12" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAEAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AuditLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_11._09_практика.TransferService">
+    <Position X="0.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TransferService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="_11._09_практика.BankAccountStatus">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>BankAccount.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="_11._09_практика.AuditType">
+    <Position X="12" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAQAAAAAAAAAAAI=</HashCode>
+      <FileName>AuditLog.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
