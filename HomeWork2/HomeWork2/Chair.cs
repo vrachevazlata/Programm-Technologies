@@ -5,8 +5,14 @@
 /// </summary>
 public class Chair : Furniture
 {
+    /// <summary>
+    /// Количество ножек стула.
+    /// </summary>
     public int LegsCount { get; set; }
 
+    /// <summary>
+    /// Показывает, является ли стул табуретом с тремя ножками.
+    /// </summary>
     public bool IsStool
     {
         get
@@ -15,6 +21,13 @@ public class Chair : Furniture
         }
     }
 
+    /// <summary>
+    /// Создаёт стул с заданными характеристиками.
+    /// </summary>
+    /// <param name="id">Идентификатор стула.</param>
+    /// <param name="name">Название стула.</param>
+    /// <param name="price">Цена стула.</param>
+    /// <param name="legsCount">Количество ножек.</param>
     public Chair(int id,string name, decimal price, int legsCount)
         : base(id,name,price)
     {
@@ -28,11 +41,11 @@ public class Chair : Furniture
     {
         if (IsStool)
         {
-            Console.WriteLine("Chair is a stool.");
+            Console.WriteLine("Это табурет с 3 ножками.");
         }
         else
         {
-            Console.WriteLine($"Chair has {LegsCount} legs.");
+            Console.WriteLine($"У стула {LegsCount} ножек.");
         }
 
     }
@@ -42,6 +55,6 @@ public class Chair : Furniture
     /// </summary>
     public override string ToString()
     {
-        return $"[Chair] {Name}, {Price}, material: {Material}, legs: {LegsCount}";
+        return $"[Chair] {Name}, Price: {Price}, material: {Material}, legs: {LegsCount}";
     }
 }

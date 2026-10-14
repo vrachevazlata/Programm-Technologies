@@ -5,8 +5,14 @@
 /// </summary>
 public class Table : Furniture, IAssemblable
 {
+    /// <summary>
+    /// Количество ножек стола.
+    /// </summary>
     public int SeatsCount { get; set; }
 
+    /// <summary>
+    /// Показывает является ли стол большим.
+    /// </summary>
     public bool IsBigTable
     {
         get
@@ -15,6 +21,13 @@ public class Table : Furniture, IAssemblable
         }
     }
 
+    /// <summary>
+    /// Создает стол с заданными характеристиками. 
+    /// </summary>
+    /// <param name="id">Индивидуальный код мебели.</param>
+    /// <param name="name">Название мебели.</param>
+    /// <param name="price">Цена мебели.</param>
+    /// <param name="seatsCount">Количество ножек.</param>
     public Table(int id, string name, decimal price, int seatsCount)
         : base(id, name,price)
     {
@@ -26,7 +39,7 @@ public class Table : Furniture, IAssemblable
     /// </summary>
     public override void Describe()
     {
-        Console.WriteLine($"Table seats {SeatsCount} people.");
+        Console.WriteLine($"Стол рассчитан на {SeatsCount} человек.");
     }
 
     /// <summary>
@@ -34,11 +47,14 @@ public class Table : Furniture, IAssemblable
     /// </summary>
     public void Assemble()
     {
-        Console.WriteLine("Table assembled successfully.");
+        Console.WriteLine("Стол успешно собран.");
     }
 
+    /// <summary>
+    /// Возвращает строковую информацию о столе.
+    /// </summary>
     public override string ToString()
     {
-        return $"[Table] {Name}, {Price}, material: {Material}, seats: {SeatsCount}";
+        return $"[Table] {Name}, Price: {Price}, material: {Material}, seats: {SeatsCount}";
     }
 }
