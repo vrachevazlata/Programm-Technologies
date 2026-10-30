@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BankAccounts.Core.Withdrawals;
 
-namespace BankAccounts.core.Withdrawals
+namespace BankAccounts.Core.Withdrawals;
+
+public interface IWithdrawalPolicy
 {
-    internal class IWithdrawalPolicy
-    {
-    }
+    WithdrawalDecision Evaluate(
+        decimal currentBalance,
+        decimal amount,
+        decimal minimumBalance);
 }

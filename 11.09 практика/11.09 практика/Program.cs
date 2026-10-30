@@ -1,50 +1,24 @@
-﻿namespace _11._09_практика
+﻿using BankAccounts.Core.AccountNumbers;
+using BankAccounts.Core.Factories;
+using BankAccounts.Core.Statements;
+using BankAccounts.Core.Time;
 
-    //Классы банковских считов
 
+namespace BankAccounts.Console
 {
-    public class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
-            BankAccount account = new BankAccount("nasy ", 5000);
+            var clock = new SystemClock();
+            var factory = new AccountFactory(clock, new SequentialAccountNumberGenerator());
+            var formatter = new TextStatementFormatter();
 
-            BankAccount account2 = new BankAccount("nasy", 7000);
-            Console.WriteLine($"account {account.Balance} {account.Number} {account.Owner}");
-            Console.WriteLine($"account {account2.Balance} {account2.Number} {account2.Owner}");
+            var savings = factory.CreateInterestEarning("Yana", 10000m);
+            savings.Deposit(100m, clock.Now, "asda");
 
-            account.MakeDeposit(100, DateTime.UtcNow, ":)");
-            Console.WriteLine(account.Balance);
-            account2.MakeDeposit(10, DateTime.UtcNow, ":)");
-            Console.WriteLine(account2.Balance);
-            Console.WriteLine(account2.GetAccountHistory());
+            System.Console.WriteLine(formatter.Format(savings.Transactions));
 
-            try
-            {
-                account2.MakeWithdrawal(100000000, DateTime.UtcNow, ":(");
-            }
-            catch (InvalidOperationException e)
-            { 
-                Console.WriteLine(e.Message );
-            }
-            InterestEarningAccount interestEarning = new("Zlata", 10000m); //точка остановы
-            interestEarning.MakeDeposit(100m, DateTime.UtcNow, ":)");
-            interestEarning.MakeWithdrawal(10m, DateTime.UtcNow, ":(");
-            interestEarning.PerformMonthAndTransactions();
-            Console.WriteLine(interestEarning.GetAccountHistory());
-
-            Console.WriteLine(interestEarning);
-            Console.WriteLine(interestEarning.GetAccountHistory());
-
-
-            GiftCartAccount giftCart = new("Zlata", 1000m, 5000m);
-            giftCart.MakeDeposit(100m, DateTime.UtcNow, ":)");
-            giftCart.MakeWithdrawal(10m, DateTime.UtcNow, ":(");
-            giftCart.PerformMonthAndTransactions();
-
-            Console.WriteLine(giftCart);
-            Console.WriteLine(giftCart.GetAccountHistory());
         }
-
     }
 }
