@@ -3,7 +3,6 @@ using BankAccounts.Core.Accounts;
 using BankAccounts.Core.MonthEnd;
 using BankAccounts.Core.Time;
 using BankAccounts.Core.Withdrawals;
-using BankAccounts.Core.AccountNumbers;
 using BankAccounts.Core.Transactions;
 
 
@@ -77,6 +76,7 @@ public class BankAccount : IAccountOperations, IAccountStatement
 
     public virtual void PerforMonthEndTransactions()
     {
+        if (_monthEndRules is null) return;
         var asOf = _clock.Now;
         foreach (var rule in _monthEndRules)
             rule.Apply(this, asOf);
