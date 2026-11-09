@@ -29,9 +29,7 @@ public class DifficultySettingsProvider : IDifficultySettingsProvider
         }
     }
 
-    /// <summary>
-    /// Создаёт пользовательские настройки.
-    /// </summary>
+
     public GameSettings CreateCustomSettings(int minNumber, int maxNumber, int maxAttempts, int timeLimitSeconds)
     {
         return new GameSettings(Difficulty.Custom, minNumber, maxNumber, maxAttempts, timeLimitSeconds);
