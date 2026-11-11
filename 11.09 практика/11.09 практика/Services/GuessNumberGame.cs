@@ -1,5 +1,6 @@
 ﻿using Game.Interfaces;
 using Game.Models;
+using Game.Events;
 
 namespace Game.Services;
 
@@ -14,6 +15,21 @@ public class GuessNumberGame
     private int _secretNumber;
     private DateTime _startTime;
     private bool _hasStarted;
+
+    /// <summary>
+    /// Возникает после запуска нового игрового раунда.
+    /// </summary>
+    public event EventHandler<GameStartedEventArgs>? GameStarted;
+
+    /// <summary>
+    /// Возникает после принятия очередной попытки игрока.
+    /// </summary>
+    public event EventHandler<GuessMadeEventArgs>? GuessMade;
+
+    /// <summary>
+    /// Возникает после завершения игрового раунда.
+    /// </summary>
+    public event EventHandler<GameFinishedEventArgs>? GameFinished;
 
     /// <summary>
     /// Количество использованных попыток.
@@ -97,8 +113,13 @@ public class GuessNumberGame
         IsFinished = false;
         FinishReason = null;
         _hasStarted = true;
+
+        GameStarted?.Invoke(this, new GameStartedEventArgs(_settings));
     }
 
+    /// <summary>
+    /// Проверяет число, введённое игроком.
+    /// </summary>
     /// <summary>
     /// Проверяет число, введённое игроком.
     /// </summary>
@@ -126,13 +147,17 @@ public class GuessNumberGame
 
         Attempts++;
 
+        GuessResult result;
+
         if (number == _secretNumber)
         {
-            FinishGame(GameFinishReason.Guessed);
-            return GuessResult.Correct;
-        }
+            result = GuessResult.Correct;
 
-        GuessResult result;
+            GuessMade?.Invoke(this, new GuessMadeEventArgs(number, result, Attempts, RemainingAttempts, RemainingSeconds));
+
+            FinishGame(GameFinishReason.Guessed);
+            return result;
+        }
 
         if (number < _secretNumber)
         {
@@ -142,6 +167,8 @@ public class GuessNumberGame
         {
             result = GuessResult.SecretNumberIsLower;
         }
+
+        GuessMade?.Invoke(this, new GuessMadeEventArgs(number, result, Attempts, RemainingAttempts, RemainingSeconds));
 
         if (Attempts >= _settings.MaxAttempts)
         {
@@ -175,7 +202,16 @@ public class GuessNumberGame
     /// </summary>
     private void FinishGame(GameFinishReason reason)
     {
+        if (IsFinished)
+        {
+            return;
+        }
+
         IsFinished = true;
         FinishReason = reason;
+
+        int timeSpentSeconds = (int)(DateTime.UtcNow - _startTime).TotalSeconds;
+
+        GameFinished?.Invoke(this, new GameFinishedEventArgs(reason, _secretNumber, Attempts, timeSpentSeconds, _settings.Difficulty));
     }
 }

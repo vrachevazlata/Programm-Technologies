@@ -10,8 +10,6 @@
 
   <ItemGroup>
     <Folder Include="Repositories\" />
-    <Folder Include="Events\" />
-    <Folder Include="Application\" />
   </ItemGroup>
 
 </Project>
