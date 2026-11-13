@@ -1,6 +1,6 @@
-﻿using Game.Models;
+﻿using Game.Core.Models;
 
-namespace Game.Interfaces;
+namespace Game.Core.Interfaces;
 
 /// <summary>
 /// Описывает получение настроек выбранного уровня сложности.

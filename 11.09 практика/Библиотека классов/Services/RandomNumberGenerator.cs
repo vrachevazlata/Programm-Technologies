@@ -1,6 +1,6 @@
-﻿using Game.Interfaces;
+﻿using Game.Core.Interfaces;
 
-namespace Game.Services;
+namespace Game.Core.Services;
 
 /// <summary>
 /// Генерирует случайные целые числа.

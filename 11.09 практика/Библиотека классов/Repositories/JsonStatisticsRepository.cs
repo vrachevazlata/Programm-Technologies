@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using Game.Interfaces;
-using Game.Models;
+using Game.Core.Interfaces;
+using Game.Core.Models;
 
-namespace Game.Repositories;
+namespace Game.Core.Repositories;
 
 /// <summary>
 /// Загружает и сохраняет статистику в JSON-файле.

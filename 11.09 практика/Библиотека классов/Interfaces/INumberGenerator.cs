@@ -1,4 +1,4 @@
-﻿namespace Game.Interfaces;
+﻿namespace Game.Core.Interfaces;
 
 /// <summary>
 /// Описывает генератор целых чисел.

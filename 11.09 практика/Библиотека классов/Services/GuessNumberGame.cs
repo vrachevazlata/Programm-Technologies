@@ -1,8 +1,8 @@
-﻿using Game.Interfaces;
-using Game.Models;
-using Game.Events;
+﻿using Game.Core.Interfaces;
+using Game.Core.Models;
+using Game.Core.Events;
 
-namespace Game.Services;
+namespace Game.Core.Services;
 
 /// <summary>
 /// Управляет одним раундом игры «Угадай число».

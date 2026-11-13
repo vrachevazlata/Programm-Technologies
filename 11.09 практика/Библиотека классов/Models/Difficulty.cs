@@ -1,4 +1,4 @@
-﻿namespace Game.Models;
+﻿namespace Game.Core.Models;
 
 /// <summary>
 /// Определяет доступные уровни сложности игры.

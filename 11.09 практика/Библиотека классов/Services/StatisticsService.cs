@@ -1,8 +1,8 @@
-﻿using Game.Events;
-using Game.Interfaces;
-using Game.Models;
+﻿using Game.Core.Events;
+using Game.Core.Interfaces;
+using Game.Core.Models;
 
-namespace Game.Services;
+namespace Game.Core.Services;
 
 /// <summary>
 /// Обрабатывает результаты игр и управляет статистикой.

@@ -1,7 +1,7 @@
-﻿using Game.Interfaces;
-using Game.Models;
+﻿using Game.Core.Interfaces;
+using Game.Core.Models;
 
-namespace Game.Services;
+namespace Game.Core.Services;
 
 /// <summary>
 /// Создаёт настройки стандартных и пользовательского уровней сложности.

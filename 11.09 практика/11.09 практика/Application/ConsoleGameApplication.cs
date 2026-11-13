@@ -1,6 +1,6 @@
-﻿using Game.Interfaces;
-using Game.Models;
-using Game.Services;
+﻿using Game.Core.Interfaces;
+using Game.Core.Models;
+using Game.Core.Services;
 
 namespace Game.Application;
 

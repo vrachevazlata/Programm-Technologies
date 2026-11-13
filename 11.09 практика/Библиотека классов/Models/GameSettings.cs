@@ -1,4 +1,4 @@
-﻿namespace Game.Models;
+﻿namespace Game.Core.Models;
 
 /// <summary>
 /// Хранит настройки одного игрового режима.

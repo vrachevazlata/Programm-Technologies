@@ -1,6 +1,6 @@
-﻿using Game.Models;
+﻿using Game.Core.Models;
 
-namespace Game.Events;
+namespace Game.Core.Events;
 
 /// <summary>
 /// Содержит данные о начале игры.

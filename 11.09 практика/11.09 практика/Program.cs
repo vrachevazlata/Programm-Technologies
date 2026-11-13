@@ -1,7 +1,7 @@
 ﻿using Game.Application;
-using Game.Interfaces;
-using Game.Repositories;
-using Game.Services;
+using Game.Core.Interfaces;
+using Game.Core.Repositories;
+using Game.Core.Services;
 
 namespace Game;
 

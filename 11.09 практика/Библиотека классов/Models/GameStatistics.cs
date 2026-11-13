@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Game.Models;
+namespace Game.Core.Models;
 
 /// <summary>
 /// Хранит историю игр и рассчитывает общую статистику.

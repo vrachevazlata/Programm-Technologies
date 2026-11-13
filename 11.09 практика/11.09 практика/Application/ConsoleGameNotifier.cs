@@ -1,6 +1,6 @@
-﻿using Game.Events;
-using Game.Models;
-using Game.Services;
+﻿using Game.Core.Events;
+using Game.Core.Models;
+using Game.Core.Services;
 
 namespace Game.Application;
 

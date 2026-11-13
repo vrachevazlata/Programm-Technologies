@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="11.09 практика/Game.csproj" />
+  <Project Path="Библиотека классов/Game.Core.csproj" Id="9ffe7ad6-efec-411a-8020-83a735223391" />
 </Solution>
