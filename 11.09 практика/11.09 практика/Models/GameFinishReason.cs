@@ -5,7 +5,7 @@
 /// </summary>
 public enum GameFinishReason
 {
-    Guessed,
-    AttemptsEnded,
-    TimeExpired
+    Guessed, // угадал
+    AttemptsEnded, // попытки закончились
+    TimeExpired // время вышло
 }
