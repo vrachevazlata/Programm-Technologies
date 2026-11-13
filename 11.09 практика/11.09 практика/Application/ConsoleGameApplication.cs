@@ -259,7 +259,7 @@ public class ConsoleGameApplication
         for (int i = 0; i < playersCount; i++)
         {
             Console.WriteLine();
-            Console.WriteLine($"Игрок №{i + 1}");
+            Console.WriteLine($"Игрок #{i + 1}");
 
             string playerName = ReadPlayerName();
             playerNames.Add(playerName);
