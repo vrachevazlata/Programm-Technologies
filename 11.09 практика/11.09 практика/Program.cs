@@ -17,8 +17,9 @@ internal class Program
 
         StatisticsService statisticsService = new StatisticsService(statisticsRepository);
         ConsoleGameNotifier notifier = new ConsoleGameNotifier();
+        MultiplayerService multiplayerService = new MultiplayerService();
 
-        ConsoleGameApplication application = new ConsoleGameApplication(numberGenerator, settingsProvider, statisticsService, notifier);
+        ConsoleGameApplication application = new ConsoleGameApplication(numberGenerator, settingsProvider, statisticsService, notifier, multiplayerService);
 
         application.Run();
     }

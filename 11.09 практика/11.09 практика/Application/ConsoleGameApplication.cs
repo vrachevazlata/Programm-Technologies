@@ -13,21 +13,24 @@ public class ConsoleGameApplication
     private readonly IDifficultySettingsProvider _settingsProvider;
     private readonly StatisticsService _statisticsService;
     private readonly ConsoleGameNotifier _notifier;
+    private readonly MultiplayerService _multiplayerService;
 
     /// <summary>
     /// Создаёт консольное приложение с необходимыми зависимостями.
     /// </summary>
-    public ConsoleGameApplication(INumberGenerator numberGenerator, IDifficultySettingsProvider settingsProvider, StatisticsService statisticsService, ConsoleGameNotifier notifier)
+    public ConsoleGameApplication(INumberGenerator numberGenerator, IDifficultySettingsProvider settingsProvider, StatisticsService statisticsService, ConsoleGameNotifier notifier, MultiplayerService multiplayerService)
     {
         ArgumentNullException.ThrowIfNull(numberGenerator);
         ArgumentNullException.ThrowIfNull(settingsProvider);
         ArgumentNullException.ThrowIfNull(statisticsService);
         ArgumentNullException.ThrowIfNull(notifier);
+        ArgumentNullException.ThrowIfNull(multiplayerService);
 
         _numberGenerator = numberGenerator;
         _settingsProvider = settingsProvider;
         _statisticsService = statisticsService;
         _notifier = notifier;
+        _multiplayerService = multiplayerService;
     }
 
     /// <summary>
@@ -45,10 +48,10 @@ public class ConsoleGameApplication
 
         while (isRunning)
         {
-            Console.WriteLine();
             Console.WriteLine("ГЛАВНОЕ МЕНЮ");
-            Console.WriteLine("1 — Начать игру");
-            Console.WriteLine("2 — Посмотреть статистику");
+            Console.WriteLine("1 — Одиночная игра");
+            Console.WriteLine("2 — Многопользовательская игра");
+            Console.WriteLine("3 — Посмотреть статистику");
             Console.WriteLine("0 — Выход");
             Console.Write("Ваш выбор: ");
 
@@ -57,10 +60,15 @@ public class ConsoleGameApplication
             switch (choice)
             {
                 case "1":
+                    _statisticsService.SetPlayerName(playerName);
                     PlayGame();
                     break;
 
                 case "2":
+                    PlayMultiplayerGame();
+                    break;
+
+                case "3":
                     ShowStatistics();
                     break;
 
@@ -70,7 +78,7 @@ public class ConsoleGameApplication
                     break;
 
                 default:
-                    Console.WriteLine("Ошибка: выберите пункт 0, 1 или 2.");
+                    Console.WriteLine("Ошибка: выберите пункт от 0 до 3.");
                     break;
             }
         }
@@ -164,11 +172,19 @@ public class ConsoleGameApplication
 
 
     /// <summary>
-    /// Запускает один игровой раунд.
+    /// Запускает одиночную игру.
     /// </summary>
     private void PlayGame()
     {
         GameSettings settings = SelectGameSettings();
+        PlayRound(settings);
+    }
+
+    /// <summary>
+    /// Проводит один игровой раунд с указанными настройками.
+    /// </summary>
+    private GameRecord PlayRound(GameSettings settings)
+    {
         GuessNumberGame game = new GuessNumberGame(settings, _numberGenerator);
 
         _notifier.Subscribe(game);
@@ -210,6 +226,94 @@ public class ConsoleGameApplication
         {
             _statisticsService.Unsubscribe(game);
             _notifier.Unsubscribe(game);
+        }
+
+        int lastRecordIndex = _statisticsService.Statistics.Games.Count - 1;
+        return _statisticsService.Statistics.Games[lastRecordIndex];
+    }
+
+    /// <summary>
+    /// Запускает многопользовательскую игру.
+    /// </summary>
+    private void PlayMultiplayerGame()
+    {
+        Console.WriteLine();
+        Console.WriteLine("МНОГОПОЛЬЗОВАТЕЛЬСКАЯ ИГРА");
+
+        int playersCount;
+
+        while (true)
+        {
+            playersCount = ReadPositiveInteger("Количество игроков от 2 до 10: ");
+
+            if (playersCount >= 2 && playersCount <= 10)
+            {
+                break;
+            }
+
+            Console.WriteLine("Количество игроков должно быть от 2 до 10.");
+        }
+
+        List<string> playerNames = new List<string>();
+
+        for (int i = 0; i < playersCount; i++)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"Игрок №{i + 1}");
+
+            string playerName = ReadPlayerName();
+            playerNames.Add(playerName);
+        }
+
+        GameSettings settings = SelectGameSettings();
+        List<GameRecord> results = new List<GameRecord>();
+
+        for (int i = 0; i < playerNames.Count; i++)
+        {
+            string playerName = playerNames[i];
+
+            Console.WriteLine();
+            Console.WriteLine(" ");
+            Console.WriteLine($"ХОД ИГРОКА: {playerName}");
+            Console.WriteLine(" ");
+
+            _statisticsService.SetPlayerName(playerName);
+
+            GameRecord result = PlayRound(settings);
+            results.Add(result);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("РЕЗУЛЬТАТЫ МНОГОПОЛЬЗОВАТЕЛЬСКОЙ ИГРЫ");
+
+        foreach (GameRecord result in results)
+        {
+            string resultText;
+
+            if (result.IsWon)
+            {
+                resultText = "победа";
+            }
+            else
+            {
+                resultText = "поражение";
+            }
+
+            Console.WriteLine($"{result.PlayerName}: {resultText}, попыток — {result.Attempts}, время — {result.TimeSpentSeconds} сек.");
+        }
+
+        GameRecord? winner = _multiplayerService.FindWinner(results);
+
+        Console.WriteLine();
+
+        if (winner == null)
+        {
+            Console.WriteLine("Победителя нет: никто не угадал число.");
+        }
+        else
+        {
+            Console.WriteLine($"ПОБЕДИТЕЛЬ: {winner.PlayerName}");
+            Console.WriteLine($"Попыток: {winner.Attempts}, время: {winner.TimeSpentSeconds} сек.");
         }
     }
 
