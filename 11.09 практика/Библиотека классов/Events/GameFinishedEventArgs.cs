@@ -1,4 +1,5 @@
-﻿using Game.Core.Models;
+﻿using Game.Core.Interfaces;
+using Game.Core.Models;
 
 namespace Game.Core.Events;
 
@@ -30,17 +31,24 @@ public class GameFinishedEventArgs : EventArgs
     /// <summary>
     /// Уровень сложности завершённой игры.
     /// </summary>
-    public Difficulty Difficulty { get; }
+    public IDifficultyLevel Level { get; }
 
     /// <summary>
     /// Создаёт данные события завершения игры.
     /// </summary>
-    public GameFinishedEventArgs(GameFinishReason reason, int secretNumber, int attempts, int timeSpentSeconds, Difficulty difficulty)
+    public GameFinishedEventArgs(
+        GameFinishReason reason,
+        int secretNumber,
+        int attempts,
+        int timeSpentSeconds,
+        IDifficultyLevel level)
     {
+        ArgumentNullException.ThrowIfNull(level);
+
         Reason = reason;
         SecretNumber = secretNumber;
         Attempts = attempts;
         TimeSpentSeconds = timeSpentSeconds;
-        Difficulty = difficulty;
+        Level = level;
     }
 }

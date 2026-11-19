@@ -39,10 +39,10 @@ public class ConsoleGameNotifier
     private void OnGameStarted(object? sender, GameStartedEventArgs e)
     {
         Console.WriteLine("Игра «Угадай число»");
-        Console.WriteLine($"Уровень сложности: {e.Settings.Difficulty}.");
-        Console.WriteLine($"Диапазон: от {e.Settings.MinNumber} до {e.Settings.MaxNumber}.");
-        Console.WriteLine($"Количество попыток: {e.Settings.MaxAttempts}.");
-        Console.WriteLine($"Ограничение времени: {e.Settings.TimeLimitSeconds} секунд.");
+        Console.WriteLine($"Уровень сложности: {e.Level.Name}.");
+        Console.WriteLine($"Диапазон: от {e.Level.MinNumber} до {e.Level.MaxNumber}.");
+        Console.WriteLine($"Количество попыток: {e.Level.MaxAttempts}.");
+        Console.WriteLine($"Ограничение времени: {e.Level.TimeLimitSeconds} секунд.");
     }
 
     /// <summary>

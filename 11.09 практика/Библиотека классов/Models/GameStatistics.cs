@@ -111,13 +111,13 @@ public class GameStatistics
     /// <summary>
     /// Возвращает лучший результат для указанной сложности.
     /// </summary>
-    public int GetBestAttempts(Difficulty difficulty)
+    public int? GetBestAttempts(string difficultyName)
     {
         int bestAttempts = 0;
 
         foreach (GameRecord game in Games)
         {
-            if (game.Difficulty == difficulty && game.IsWon)
+            if (game.Difficulty == difficultyName && game.IsWon)
             {
                 if (bestAttempts == 0 || game.Attempts < bestAttempts)
                 {

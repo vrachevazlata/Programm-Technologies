@@ -13,7 +13,7 @@ public class GameRecord
     /// <summary>
     /// Уровень сложности.
     /// </summary>
-    public Difficulty Difficulty { get; set; }
+    public string Difficulty { get; set; } = string.Empty;
 
     /// <summary>
     /// Показывает, победил ли игрок.

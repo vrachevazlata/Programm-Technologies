@@ -67,7 +67,7 @@ public class StatisticsService
         GameRecord record = new GameRecord
         {
             PlayerName = _playerName,
-            Difficulty = e.Difficulty,
+            Difficulty = e.Level.Name,
             IsWon = e.Reason == GameFinishReason.Guessed,
             Attempts = e.Attempts,
             TimeSpentSeconds = e.TimeSpentSeconds,

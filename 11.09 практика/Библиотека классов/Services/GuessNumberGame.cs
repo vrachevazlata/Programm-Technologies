@@ -9,7 +9,7 @@ namespace Game.Core.Services;
 /// </summary>
 public class GuessNumberGame
 {
-    private readonly GameSettings _settings;
+    private readonly IDifficultyLevel _settings;
     private readonly INumberGenerator _numberGenerator;
 
     private int _secretNumber;
@@ -93,7 +93,7 @@ public class GuessNumberGame
     /// <summary>
     /// Создаёт игру с указанными настройками и генератором числа.
     /// </summary>
-    public GuessNumberGame(GameSettings settings, INumberGenerator numberGenerator)
+    public GuessNumberGame(IDifficultyLevel settings, INumberGenerator numberGenerator)
     {
         ArgumentNullException.ThrowIfNull(settings);
         ArgumentNullException.ThrowIfNull(numberGenerator);
@@ -117,9 +117,7 @@ public class GuessNumberGame
         GameStarted?.Invoke(this, new GameStartedEventArgs(_settings));
     }
 
-    /// <summary>
-    /// Проверяет число, введённое игроком.
-    /// </summary>
+
     /// <summary>
     /// Проверяет число, введённое игроком.
     /// </summary>
@@ -212,6 +210,6 @@ public class GuessNumberGame
 
         int timeSpentSeconds = (int)(DateTime.UtcNow - _startTime).TotalSeconds;
 
-        GameFinished?.Invoke(this, new GameFinishedEventArgs(reason, _secretNumber, Attempts, timeSpentSeconds, _settings.Difficulty));
+        GameFinished?.Invoke(this,new GameFinishedEventArgs(reason,_secretNumber,Attempts,timeSpentSeconds,_settings));
     }
 }

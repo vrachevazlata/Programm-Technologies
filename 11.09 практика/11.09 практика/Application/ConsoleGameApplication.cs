@@ -1,6 +1,7 @@
 ﻿using Game.Core.Interfaces;
 using Game.Core.Models;
 using Game.Core.Services;
+using System.Text;
 
 namespace Game.Application;
 
@@ -106,68 +107,62 @@ public class ConsoleGameApplication
     /// <summary>
     /// Запрашивает уровень сложности и возвращает настройки игры.
     /// </summary>
-    private GameSettings SelectGameSettings()
+    private IDifficultyLevel SelectDifficultyLevel()
     {
-        while (true)
+        Console.WriteLine("Выберите уровень сложности:");
+
+        for (int i = 0; i < _settingsProvider.Levels.Count; i++)
         {
-            Console.WriteLine();
-            Console.WriteLine("ВЫБЕРИТЕ СЛОЖНОСТЬ");
-            Console.WriteLine("1 — Лёгкая: числа 1–50, 10 попыток, 120 секунд");
-            Console.WriteLine("2 — Средняя: числа 1–100, 8 попыток, 90 секунд");
-            Console.WriteLine("3 — Сложная: числа 1–500, 9 попыток, 60 секунд");
-            Console.WriteLine("4 — Пользовательские настройки");
-            Console.Write("Ваш выбор: ");
-
-            string? choice = Console.ReadLine();
-
-            switch (choice)
-            {
-                case "1":
-                    return _settingsProvider.GetSettings(Difficulty.Easy);
-
-                case "2":
-                    return _settingsProvider.GetSettings(Difficulty.Medium);
-
-                case "3":
-                    return _settingsProvider.GetSettings(Difficulty.Hard);
-
-                case "4":
-                    return ReadCustomSettings();
-
-                default:
-                    Console.WriteLine("Ошибка: выберите пункт от 1 до 4.");
-                    break;
-            }
+            Console.WriteLine($"{i + 1}. {_settingsProvider.Levels[i]}");
         }
+
+        int customOption = _settingsProvider.Levels.Count + 1;
+        Console.WriteLine($"{customOption}. Пользовательская");
+
+        int choice = ReadInteger(
+            "Ваш выбор: ",
+            1,
+            customOption);
+
+        if (choice == customOption)
+        {
+            return ReadCustomLevel();
+        }
+
+        return _settingsProvider.Levels[choice - 1];
     }
 
     /// <summary>
     /// Запрашивает пользовательские настройки игры.
     /// </summary>
-    private GameSettings ReadCustomSettings()
+    private IDifficultyLevel ReadCustomLevel()
     {
-        Console.WriteLine();
-        Console.WriteLine("ПОЛЬЗОВАТЕЛЬСКИЕ НАСТРОЙКИ");
+        int minNumber = ReadInteger(
+            "Минимальное число: ",
+            int.MinValue,
+            int.MaxValue);
 
-        int minNumber = ReadInteger("Минимальное число: ");
         int maxNumber;
 
-        while (true)
+        do
         {
-            maxNumber = ReadInteger("Максимальное число: ");
+            maxNumber = ReadInteger("Максимальное число: ",int.MinValue,int.MaxValue);
 
-            if (maxNumber > minNumber)
+            if (maxNumber <= minNumber)
             {
-                break;
+                Console.WriteLine("Максимальное число должно быть больше минимального.");
             }
-
-            Console.WriteLine("Максимальное число должно быть больше минимального.");
         }
+        while (maxNumber <= minNumber);
 
         int maxAttempts = ReadPositiveInteger("Количество попыток: ");
         int timeLimitSeconds = ReadPositiveInteger("Ограничение времени в секундах: ");
 
-        return _settingsProvider.CreateCustomSettings(minNumber, maxNumber, maxAttempts, timeLimitSeconds);
+        return _settingsProvider.CreateCustomLevel(
+            minNumber,
+            maxNumber,
+            maxAttempts,
+            timeLimitSeconds);
     }
 
 
@@ -176,14 +171,14 @@ public class ConsoleGameApplication
     /// </summary>
     private void PlayGame()
     {
-        GameSettings settings = SelectGameSettings();
+        IDifficultyLevel settings = SelectDifficultyLevel();
         PlayRound(settings);
     }
 
     /// <summary>
     /// Проводит один игровой раунд с указанными настройками.
     /// </summary>
-    private GameRecord PlayRound(GameSettings settings)
+    private GameRecord PlayRound(IDifficultyLevel settings)
     {
         GuessNumberGame game = new GuessNumberGame(settings, _numberGenerator);
 
@@ -200,9 +195,9 @@ public class ConsoleGameApplication
                 Console.WriteLine();
                 Console.Write($"Введите число от {settings.MinNumber} до {settings.MaxNumber}: ");
 
-                string? input = Console.ReadLine();
+                string? input = ReadLineUntilGameEnds(game);
 
-                if (game.CheckTimeLimit())
+                if (input == null || game.CheckTimeLimit())
                 {
                     break;
                 }
@@ -265,7 +260,7 @@ public class ConsoleGameApplication
             playerNames.Add(playerName);
         }
 
-        GameSettings settings = SelectGameSettings();
+        IDifficultyLevel settings = SelectDifficultyLevel();
         List<GameRecord> results = new List<GameRecord>();
 
         for (int i = 0; i < playerNames.Count; i++)
@@ -342,10 +337,12 @@ public class ConsoleGameApplication
         Console.WriteLine();
         Console.WriteLine("ЛУЧШИЕ РЕЗУЛЬТАТЫ");
 
-        ShowBestResult(Difficulty.Easy, "Лёгкая");
-        ShowBestResult(Difficulty.Medium, "Средняя");
-        ShowBestResult(Difficulty.Hard, "Сложная");
-        ShowBestResult(Difficulty.Custom, "Пользовательская");
+        foreach (IDifficultyLevel level in _settingsProvider.Levels)
+        {
+            ShowBestResult(level.Name);
+        }
+
+        ShowBestResult("Пользовательская");
 
         Console.WriteLine();
         Console.WriteLine("ПОСЛЕДНИЕ ИГРЫ");
@@ -374,18 +371,71 @@ public class ConsoleGameApplication
     /// <summary>
     /// Показывает лучший результат выбранного уровня сложности.
     /// </summary>
-    private void ShowBestResult(Difficulty difficulty, string difficultyName)
+    private void ShowBestResult(string difficultyName)
     {
-        int bestAttempts = _statisticsService.Statistics.GetBestAttempts(difficulty);
+        int? bestAttempts =
+            _statisticsService.Statistics.GetBestAttempts(difficultyName);
 
-        if (bestAttempts > 0)
+        if (bestAttempts.HasValue)
         {
-            Console.WriteLine($"{difficultyName}: {bestAttempts} попыток.");
+            Console.WriteLine(
+                $"{difficultyName}: лучший результат — {bestAttempts.Value} попыток.");
         }
         else
         {
             Console.WriteLine($"{difficultyName}: побед пока нет.");
         }
+    }
+
+    /// <summary>
+    /// Читает строку, пока игровое время не закончилось.
+    /// </summary>
+    private string? ReadLineUntilGameEnds(GuessNumberGame game)
+    {
+        StringBuilder input = new StringBuilder();
+
+        while (!game.IsFinished)
+        {
+            if (game.RemainingSeconds <= 0)
+            {
+                Console.WriteLine();
+                game.CheckTimeLimit();
+                return null;
+            }
+
+            if (!Console.KeyAvailable)
+            {
+                Thread.Sleep(50);
+                continue;
+            }
+
+            ConsoleKeyInfo key = Console.ReadKey(intercept: true);
+
+            if (key.Key == ConsoleKey.Enter)
+            {
+                Console.WriteLine();
+                return input.ToString();
+            }
+
+            if (key.Key == ConsoleKey.Backspace)
+            {
+                if (input.Length > 0)
+                {
+                    input.Remove(input.Length - 1, 1);
+                    Console.Write("\b \b");
+                }
+
+                continue;
+            }
+
+            if (!char.IsControl(key.KeyChar))
+            {
+                input.Append(key.KeyChar);
+                Console.Write(key.KeyChar);
+            }
+        }
+
+        return null;
     }
 
     /// <summary>
@@ -404,6 +454,26 @@ public class ConsoleGameApplication
             }
 
             Console.WriteLine("Ошибка: необходимо ввести целое число.");
+        }
+    }
+
+
+    /// <summary>
+    /// Запрашивает целое число в указанном диапазоне.
+    /// </summary>
+    private int ReadInteger(string message, int minValue, int maxValue)
+    {
+        while (true)
+        {
+            int number = ReadInteger(message);
+
+            if (number >= minValue && number <= maxValue)
+            {
+                return number;
+            }
+
+            Console.WriteLine(
+                $"Число должно находиться в диапазоне от {minValue} до {maxValue}.");
         }
     }
 

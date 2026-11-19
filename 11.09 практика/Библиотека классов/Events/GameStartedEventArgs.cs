@@ -1,4 +1,4 @@
-﻿using Game.Core.Models;
+﻿using Game.Core.Interfaces;
 
 namespace Game.Core.Events;
 
@@ -8,15 +8,16 @@ namespace Game.Core.Events;
 public class GameStartedEventArgs : EventArgs
 {
     /// <summary>
-    /// Настройки начавшейся игры.
+    /// Уровень сложности начавшейся игры.
     /// </summary>
-    public GameSettings Settings { get; }
+    public IDifficultyLevel Level { get; }
 
     /// <summary>
     /// Создаёт данные события начала игры.
     /// </summary>
-    public GameStartedEventArgs(GameSettings settings)
+    public GameStartedEventArgs(IDifficultyLevel level)
     {
-        Settings = settings;
+        ArgumentNullException.ThrowIfNull(level);
+        Level = level;
     }
 }
