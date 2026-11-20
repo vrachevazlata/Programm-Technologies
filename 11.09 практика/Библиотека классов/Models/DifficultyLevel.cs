@@ -13,6 +13,7 @@ public class DifficultyLevel : IDifficultyLevel
     public int MaxAttempts { get; }
     public int TimeLimitSeconds { get; }
 
+
     public DifficultyLevel(string name, int minNumber, int maxNumber, int maxAttempts, int timeLimitSeconds)
     {
         if (string.IsNullOrWhiteSpace(name))

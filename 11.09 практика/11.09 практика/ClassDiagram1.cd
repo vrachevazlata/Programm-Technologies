@@ -1,118 +1,105 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Game.Application.ConsoleGameApplication">
-    <Position X="0.75" Y="12.75" Width="3.25" />
+    <Position X="1" Y="4.75" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAACAAAIIAAIAAIRAAGIAAAEAAAIAIBAggAAAAAAAAI=</HashCode>
       <FileName>Application\ConsoleGameApplication.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="_multiplayerService" />
-      <Field Name="_notifier" />
       <Field Name="_numberGenerator" />
-      <Field Name="_statisticsService" />
       <Field Name="_settingsProvider" />
+      <Field Name="_statisticsService" />
+      <Field Name="_notifier" />
+      <Field Name="_multiplayerService" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Game.Application.ConsoleGameNotifier">
-    <Position X="1.75" Y="9.75" Width="2" />
+    <Position X="2" Y="1.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAEAIAAAAAAAAAAAAAAAACAAAAQAAAAAAAAAA=</HashCode>
       <FileName>Application\ConsoleGameNotifier.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Game.Core.Events.GuessMadeEventArgs">
-    <Position X="5.75" Y="9.25" Width="1.75" />
-    <TypeIdentifier />
-    <ShowAsAssociation>
-      <Property Name="Result" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="Game.Core.Models.GameFinishReason">
-    <Position X="12.75" Y="10.75" Width="1.5" />
+    <Position X="6" Y="1.25" Width="1.75" />
     <TypeIdentifier />
   </Class>
   <Class Name="Game.Core.Models.GameStatistics">
-    <Position X="5.75" Y="17" Width="1.75" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="Game.Core.Models.GuessResult">
-    <Position X="9.25" Y="9.5" Width="2" />
+    <Position X="6" Y="9" Width="1.75" />
     <TypeIdentifier />
   </Class>
   <Class Name="Game.Core.Repositories.JsonStatisticsRepository">
-    <Position X="19" Y="11.75" Width="2" />
+    <Position X="19.25" Y="3.75" Width="2" />
     <TypeIdentifier />
     <Lollipop Orientation="Left" Position="0.657" />
   </Class>
   <Class Name="Game.Core.Services.MultiplayerService">
-    <Position X="5.75" Y="15.5" Width="1.75" />
+    <Position X="6" Y="7.5" Width="1.75" />
     <TypeIdentifier />
   </Class>
   <Class Name="Game.Core.Services.RandomNumberGenerator">
-    <Position X="8.75" Y="14" Width="2.25" />
+    <Position X="9" Y="6" Width="2.25" />
     <TypeIdentifier />
     <Lollipop Orientation="Left" Position="0.493" />
   </Class>
   <Class Name="Game.Core.Services.StatisticsService">
-    <Position X="1.75" Y="17" Width="1.75" />
+    <Position X="2" Y="9" Width="1.75" />
     <TypeIdentifier />
     <ShowAsAssociation>
       <Property Name="Statistics" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Game.Core.Services.DifficultySettingsProvider">
-    <Position X="9.5" Y="12" Width="2.25" />
+    <Position X="9.75" Y="4" Width="2.25" />
     <TypeIdentifier />
     <Lollipop Orientation="Left" Position="0.542" />
   </Class>
   <Class Name="Game.Core.Services.GuessNumberGame">
-    <Position X="9" Y="16.25" Width="2" />
+    <Position X="9.25" Y="8.25" Width="2" />
     <TypeIdentifier />
   </Class>
   <Class Name="Game.Core.Events.GameFinishedEventArgs">
-    <Position X="12.75" Y="13.25" Width="2" />
+    <Position X="13" Y="5.25" Width="2" />
     <TypeIdentifier />
-    <ShowAsAssociation>
-      <Property Name="Difficulty" />
-      <Property Name="Reason" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="Game.Core.Events.GameStartedEventArgs">
-    <Position X="16.25" Y="19.25" Width="2" />
+    <Position X="16.5" Y="11.25" Width="2" />
     <TypeIdentifier />
-    <ShowAsAssociation>
-      <Property Name="Settings" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="Game.Core.Models.GameRecord">
-    <Position X="16" Y="15.5" Width="1.75" />
+    <Position X="16.25" Y="7.5" Width="1.75" />
     <TypeIdentifier />
-    <ShowAsAssociation>
-      <Property Name="Difficulty" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="Game.Core.Models.Difficulty">
-    <Position X="13" Y="16.25" Width="1.5" />
+    <Position X="13.25" Y="8.25" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="Game.Core.Models.GameSettings">
-    <Position X="13" Y="18.75" Width="1.5" />
+    <Position X="13.25" Y="10.75" Width="1.5" />
     <TypeIdentifier />
     <ShowAsAssociation>
       <Property Name="Difficulty" />
     </ShowAsAssociation>
   </Class>
+  <Class Name="Game.Core.Models.GameFinishReason">
+    <Position X="13" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Game.Core.Models.GuessResult">
+    <Position X="9.5" Y="1.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
   <Interface Name="Game.Core.Interfaces.INumberGenerator">
-    <Position X="5.75" Y="14" Width="1.75" />
+    <Position X="6" Y="6" Width="1.75" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Game.Core.Interfaces.IStatisticsRepository">
-    <Position X="16" Y="11.75" Width="1.75" />
+    <Position X="16.25" Y="3.75" Width="1.75" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Game.Core.Interfaces.IDifficultySettingsProvider">
-    <Position X="5.75" Y="12" Width="2.25" />
+    <Position X="6" Y="4" Width="2.25" />
     <TypeIdentifier />
   </Interface>
   <Font Name="Segoe UI" Size="9" />

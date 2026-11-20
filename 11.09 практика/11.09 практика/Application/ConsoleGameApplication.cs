@@ -119,10 +119,7 @@ public class ConsoleGameApplication
         int customOption = _settingsProvider.Levels.Count + 1;
         Console.WriteLine($"{customOption}. Пользовательская");
 
-        int choice = ReadInteger(
-            "Ваш выбор: ",
-            1,
-            customOption);
+        int choice = ReadInteger("Ваш выбор: ", 1, customOption);
 
         if (choice == customOption)
         {
@@ -137,10 +134,7 @@ public class ConsoleGameApplication
     /// </summary>
     private IDifficultyLevel ReadCustomLevel()
     {
-        int minNumber = ReadInteger(
-            "Минимальное число: ",
-            int.MinValue,
-            int.MaxValue);
+        int minNumber = ReadInteger("Минимальное число: ", int.MinValue, int.MaxValue);
 
         int maxNumber;
 
@@ -158,11 +152,7 @@ public class ConsoleGameApplication
         int maxAttempts = ReadPositiveInteger("Количество попыток: ");
         int timeLimitSeconds = ReadPositiveInteger("Ограничение времени в секундах: ");
 
-        return _settingsProvider.CreateCustomLevel(
-            minNumber,
-            maxNumber,
-            maxAttempts,
-            timeLimitSeconds);
+        return _settingsProvider.CreateCustomLevel(minNumber, maxNumber, maxAttempts, timeLimitSeconds);
     }
 
 
@@ -392,10 +382,12 @@ public class ConsoleGameApplication
     /// </summary>
     private string? ReadLineUntilGameEnds(GuessNumberGame game)
     {
+
         StringBuilder input = new StringBuilder();
 
         while (!game.IsFinished)
         {
+            // Проверяем, осталось ли у игрока время.
             if (game.RemainingSeconds <= 0)
             {
                 Console.WriteLine();
@@ -403,12 +395,15 @@ public class ConsoleGameApplication
                 return null;
             }
 
+            // Проверяем, нажал ли пользователь какую-либо клавишу.
             if (!Console.KeyAvailable)
             {
-                Thread.Sleep(50);
                 continue;
             }
 
+            // Считываем одну нажатую клавишу.
+            // intercept: true означает, что Console.ReadKey
+            // самостоятельно не выводит символ в консоль.
             ConsoleKeyInfo key = Console.ReadKey(intercept: true);
 
             if (key.Key == ConsoleKey.Enter)
@@ -424,17 +419,16 @@ public class ConsoleGameApplication
                     input.Remove(input.Length - 1, 1);
                     Console.Write("\b \b");
                 }
-
                 continue;
             }
 
+            // Проверяем, является ли нажатая клавиша обычным символом
             if (!char.IsControl(key.KeyChar))
             {
                 input.Append(key.KeyChar);
                 Console.Write(key.KeyChar);
             }
         }
-
         return null;
     }
 

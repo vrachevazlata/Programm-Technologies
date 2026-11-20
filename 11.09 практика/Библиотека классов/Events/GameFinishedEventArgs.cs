@@ -36,12 +36,7 @@ public class GameFinishedEventArgs : EventArgs
     /// <summary>
     /// Создаёт данные события завершения игры.
     /// </summary>
-    public GameFinishedEventArgs(
-        GameFinishReason reason,
-        int secretNumber,
-        int attempts,
-        int timeSpentSeconds,
-        IDifficultyLevel level)
+    public GameFinishedEventArgs(GameFinishReason reason,int secretNumber,int attempts,int timeSpentSeconds,IDifficultyLevel level)
     {
         ArgumentNullException.ThrowIfNull(level);
 

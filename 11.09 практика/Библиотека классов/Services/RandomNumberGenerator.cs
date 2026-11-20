@@ -19,4 +19,5 @@ public class RandomNumberGenerator : INumberGenerator
 
         return Random.Shared.Next(minNumber, maxNumber + 1);
     }
+    
 }
